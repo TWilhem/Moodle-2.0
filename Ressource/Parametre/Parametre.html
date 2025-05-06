@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titre</title>
     <link rel="stylesheet" href="../style.css" type="text/css">
-    <link rel="stylesheet" href="./Filiere.css" type="text/css">
+    <link rel="stylesheet" href="./Parametre.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="./Ajout.js"></script>
     <script src="../script.js" defer></script>
-    <script src="./Filiere.js"></script>
+    <script src="./Parametre.js" defer></script>
 </head>
 <body>
     <label for="">
@@ -23,6 +22,7 @@
                 <a href="../Filiere/Filiere.html">Filière</a>
                 <a href="../Planning/Planning.html">Planning</a>
                 <a href="../Devoir/Devoir.html">Devoir</a>
+                <a href="../Parametre/Parametre.html"><i class="fa-solid fa-user-gear"></i></a>
             </div>
         </div>
     </label>
@@ -35,9 +35,22 @@
             <a href="../Filiere/Filiere.html">Filière</a>
             <a href="../Planning/Planning.html">Planning</a>
             <a href="../Devoir/Devoir.html">Devoir</a>
+            <a href="../Parametre/Parametre.html"><i class="fa-solid fa-user-gear"></i></a>
         </div>
     </div>
     <div class="bubble-container">
-    </div>    
+        <div class="bubble">
+            <div class="upload-zone" id="uploadZone">
+                <p>Déposez une image ici ou cliquez pour en sélectionner une</p>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+            <div class="upload-zone" id="uploadZone">
+                <p>+ Ajoutez un onglet</p>
+            </div>
+            <div class="upload-zone" id="uploadZone">
+                <p>+ Ajoutez un lien</p>
+            </div>
+        </div>
+    </div>   
 </body>
 </html>

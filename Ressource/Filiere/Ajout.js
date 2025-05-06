@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const filiereDiv = document.createElement('div');
                 filiereDiv.className = 'bubble';
 
+                const settingsDiv = document.createElement('div');
+                settingsDiv.className = 'bubble-settings';
+                const icon = document.createElement('i');
+                icon.className = 'fa-solid fa-gear';
+                settingsDiv.appendChild(icon);
+
                 const imageDiv = document.createElement('div');
                 imageDiv.className = 'Image';
                 const logo = document.createElement('img');
@@ -26,38 +32,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 groupDiv.appendChild(nom);
 
                 filiere.Années.forEach(annee => {
-                    const anneeDiv = document.createElement('div');
-                    anneeDiv.className = 'bubble-second';
+                    if (annee.Niveau !== null) {
+                        const anneeDiv = document.createElement('div');
+                        anneeDiv.className = 'bubble-second';
 
-                    const niveau = document.createElement('span');
-                    niveau.className = 'bubble-second-text';
-                    niveau.textContent = annee.Niveau;
-                    anneeDiv.appendChild(niveau);
+                        const niveau = document.createElement('span');
+                        niveau.className = 'bubble-second-text';
+                        niveau.textContent = annee.Niveau;
+                        anneeDiv.appendChild(niveau);
 
-                    const linksDiv = document.createElement('div');
-                    linksDiv.className = 'sub-links';
+                        const linksDiv = document.createElement('div');
+                        linksDiv.className = 'sub-links';
 
-                    annee.Liens.forEach(lien => {
-                        const a = document.createElement('a');
-                        a.href = lien.URL;
-                        a.textContent = lien.Nom;
-                        linksDiv.appendChild(a);
-                    });
+                        annee.Liens.forEach(lien => {
+                            const a = document.createElement('a');
+                            a.href = lien.URL;
+                            a.textContent = lien.Nom;
+                            linksDiv.appendChild(a);
+                        });
 
-                    anneeDiv.appendChild(linksDiv);
-                    groupDiv.appendChild(anneeDiv);
+                        anneeDiv.appendChild(linksDiv);
+                        groupDiv.appendChild(anneeDiv);
+                    } else {
+                        const linksDiv = document.createElement('div');
+                        linksDiv.className = 'sub-links';
+
+                        annee.Liens.forEach(lien => {
+                            const a = document.createElement('a');
+                            a.href = lien.URL;
+                            a.textContent = lien.Nom;
+                            linksDiv.appendChild(a);
+                        });
+
+                        groupDiv.appendChild(linksDiv);
+                    }
                 });
 
+                filiereDiv.appendChild(settingsDiv);
                 filiereDiv.appendChild(imageDiv);
                 filiereDiv.appendChild(groupDiv);
                 container.appendChild(filiereDiv);
             });
 
-            // Initialiser Filiere.js
             if (typeof window.initFiliere === 'function') {
                 window.initFiliere();
             }
-
         })
         .catch(error => {
             console.error("Erreur lors du chargement des données :", error);
