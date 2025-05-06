@@ -1,0 +1,20 @@
+.planning-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.planning-table th, .planning-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.planning-table th {
+    background-color: #f0f0f0;
+}
+
+.planning-cell:hover {
+    background-color: #e6f7ff;
+    cursor: pointer;
+}

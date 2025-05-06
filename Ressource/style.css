@@ -1,0 +1,103 @@
+label {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+/* Icône droite (Font Awesome) */
+.right-icon i {
+    display: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Logo SVG à gauche */
+.left-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.Menu {
+    display: flex;
+    gap: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+body {
+    margin: 0;
+    padding-top: 60px;
+}
+
+@media (max-width: 1024px) {
+    .Menu {
+        display: none;
+    }
+
+    .right-icon i {
+        display: inline;
+    }
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -120px;
+    width: 100px;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 40px 60px 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.Menu a,
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    cursor: pointer;
+}
+
+.sidebar a {
+    margin-top: 20px;
+}
+
+.sidebar img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin: 20px auto;
+    display: block;
+}
+
+.sidebar p {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    margin: 0px;
+}

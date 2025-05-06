@@ -1,0 +1,166 @@
+[
+    {
+        "Image": "./RT/image/LogoRT2023b.png",
+        "Nom": "Réseaux & Télécoms",
+        "Années": [
+            {
+                "Niveau": "Première année",
+                "Liens": [
+                    { "Nom": "Retour", "URL": "#" },
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Seconde année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Troisième année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./TC/image/logo_TC_temp.png",
+        "Nom": "Technique de Commercialisation",
+        "Années": [
+            {
+                "Niveau": "Première année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Seconde année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Troisième année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./ROBIA/image/logo_robia_officiel.png",
+        "Nom": "ROB & IA",
+        "Années": [
+            {
+                "Niveau": "Première année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Seconde année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Troisième année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./MMI/image/logo_mmi.jpg",
+        "Nom": "Métiers du Multimédia et de l'Internet",
+        "Années": [
+            {
+                "Niveau": "Première année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Seconde année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Troisième année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./CS/image/logo_CS2.png",
+        "Nom": "Carrières Sociales",
+        "Années": [
+            {
+                "Niveau": "Première année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Seconde année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            },
+            {
+                "Niveau": "Troisième année",
+                "Liens": [
+                    { "Nom": "Ressource", "URL": "#" },
+                    { "Nom": "SAE", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./Cours Transversaux/image/cours_transversaux.png",
+        "Nom": "Cours Transversaux",
+        "Années": [
+            {
+                "Niveau": null,
+                "Liens": [
+                    { "Nom": "Anglais", "URL": "#" },
+                    { "Nom": "Communication", "URL": "#" },
+                    { "Nom": "Méthodologie", "URL": "#" }
+                ]
+            }
+        ]
+    },
+    {
+        "Image": "./Appui Pedagogique/image/logo_appui_peda_3.png",
+        "Nom": "Appui Pédagogique",
+        "Années": [
+            {
+                "Niveau": null,
+                "Liens": [
+                    { "Nom": "Soutien Scolaire", "URL": "#" },
+                    { "Nom": "Ateliers Pratiques", "URL": "#" },
+                    { "Nom": "Coaching Pédagogique", "URL": "#" }
+                ]
+            }
+        ]
+    }
+]
