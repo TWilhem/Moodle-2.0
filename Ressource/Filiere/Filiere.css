@@ -152,7 +152,7 @@
     cursor: pointer;
     z-index: 1;
     transition: transform 0.2s ease;
-    display: none;
+    /* display: none; */
 }
 
 .bubble-settings:hover {

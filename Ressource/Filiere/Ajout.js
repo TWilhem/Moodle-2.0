@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 settingsDiv.className = 'bubble-settings';
                 const icon = document.createElement('i');
                 icon.className = 'fa-solid fa-gear';
+                icon.style.cursor = 'pointer';
+                icon.addEventListener('click', () => {
+                    window.location.href = `../Parametre/Parametre.html?id=${filiere.ID}`;
+                });
                 settingsDiv.appendChild(icon);
 
                 const imageDiv = document.createElement('div');

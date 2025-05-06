@@ -1,5 +1,6 @@
 [
     {
+        "ID": "RT",
         "Image": "./RT/image/LogoRT2023b.png",
         "Nom": "Réseaux & Télécoms",
         "Années": [
@@ -28,6 +29,7 @@
         ]
     },
     {
+        "ID": "TC",
         "Image": "./TC/image/logo_TC_temp.png",
         "Nom": "Technique de Commercialisation",
         "Années": [
@@ -55,6 +57,7 @@
         ]
     },
     {
+        "ID": "ROBIA",
         "Image": "./ROBIA/image/logo_robia_officiel.png",
         "Nom": "ROB & IA",
         "Années": [
@@ -82,6 +85,7 @@
         ]
     },
     {
+        "ID": "MMI",
         "Image": "./MMI/image/logo_mmi.jpg",
         "Nom": "Métiers du Multimédia et de l'Internet",
         "Années": [
@@ -109,6 +113,7 @@
         ]
     },
     {
+        "ID": "CS",
         "Image": "./CS/image/logo_CS2.png",
         "Nom": "Carrières Sociales",
         "Années": [
@@ -136,7 +141,8 @@
         ]
     },
     {
-        "Image": "./Cours Transversaux/image/cours_transversaux.png",
+        "ID": "CoursTransversaux",
+        "Image": "./CoursTransversaux/image/cours_transversaux.png",
         "Nom": "Cours Transversaux",
         "Années": [
             {
@@ -150,7 +156,8 @@
         ]
     },
     {
-        "Image": "./Appui Pedagogique/image/logo_appui_peda_3.png",
+        "ID": "AppuiPedagogique",
+        "Image": "./AppuiPedagogique/image/logo_appui_peda_3.png",
         "Nom": "Appui Pédagogique",
         "Années": [
             {
