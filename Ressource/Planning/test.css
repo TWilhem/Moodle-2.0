@@ -1,0 +1,62 @@
+#planning-wrapper{
+    margin-left:40px;
+}
+.planning-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+}
+.planning-table thead th {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 2px solid #e5e7eb;
+    font-weight: 600;
+    color: #4b5563;
+    background-color: #f9fafb;
+}
+.planning-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: center;
+    vertical-align: top;
+}
+.planning-table tbody td:first-child {
+    font-weight: 500;
+    color: #6b7280;
+    background-color: #f9fafb;
+}
+.planning-cell {
+    border-left: 1px solid #f1f5f9;
+}
+.planning-cell:last-child {
+    border-right: 1px solid #f1f5f9;
+}
+
+.event-block {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.event-cm {
+    background-color: #60a5fa;
+}
+.event-td {
+    background-color: #a7f3d0;
+    color: #134e4a;
+}
+.event-tp {
+    background-color: #fca5a5;
+}
+
+#entete{
+    background-color: #f9fafb;
+    font-weight: 500;
+    color: #6b7280;
+}

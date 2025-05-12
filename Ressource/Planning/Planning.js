@@ -21,58 +21,63 @@ document.addEventListener("DOMContentLoaded", () => {
         return creneaux;
     }
 
-//   function remplissage(data){
- //       data.forEach(evenement =>{
-   //         jours.forEach(jour =>{
-     //           if (jour==evenement.day){
-       //             console.log("identique")
-//                }
-  //          })
-    //    })
-        
+
+    function remplissage(data) {
+      const joursHeader = Array.from(document.querySelectorAll('.planning-table thead th'));
+      const lignesHeures = Array.from(document.querySelectorAll('.planning-table tbody tr'));
   
-   // }
-   function remplissage(data) {
-    const joursHeader = Array.from(document.querySelectorAll('.planning-table thead th')); // Récupérer les en-têtes de jours
+      const planningParJour = {};
   
-    data.forEach(event => {
-      const jourEvenement = event.day;
-      const heureDebutEvenement = event.start;
-      const heureFinEvenement = event.end;
-      const titreEvenement = event.title;
-      const jourIndex = joursHeader.findIndex(th => th.textContent.trim() === jourEvenement);
+      // Organiser les événements par jour
+      joursHeader.slice(1).forEach(jourHeader => {
+          const jour = jourHeader.textContent.trim();
+          planningParJour[jour] = data.filter(event => event.day === jour);
+      });
   
-      if (jourIndex > 0) { // Vérifier que le jour existe dans l'en-tête (index 0 est l'en-tête des heures)
-        const lignesHeures = Array.from(document.querySelectorAll('.planning-table tbody tr'));
+      lignesHeures.forEach(ligneHeure => {
+          const heureLigne = ligneHeure.querySelector('td').textContent.trim();
+          const heureLigneMinutes = timeToMinutes(heureLigne);
   
-        lignesHeures.forEach(ligneHeure => {
-        const heureLigne = ligneHeure.querySelector('th').textContent.trim(); // Récupérer l'heure de la ligne
-        let i=0
-        const heureDebutLigneMinutes = timeToMinutes(heureLigne);
-        const heureDebutEvenementMinutes = timeToMinutes(heureDebutEvenement);
-        const heureFinEvenementMinutes = timeToMinutes(heureFinEvenement);
-        const dureeCreneauMinutes = 30; // D'après votre code précédent
-        if (heureDebutLigneMinutes >= heureDebutEvenementMinutes && heureDebutLigneMinutes < heureFinEvenementMinutes) {
-            i+=1
-          }
-          // Vérifier si l'événement se déroule pendant ce créneau horaire
-          if (heureDebutLigneMinutes >= heureDebutEvenementMinutes && heureDebutLigneMinutes < heureFinEvenementMinutes) {
-            const celluleJour = ligneHeure.querySelectorAll('td')[jourIndex - 1]; // -1 car la première colonne est l'heure
-            if (celluleJour && !celluleJour.textContent.trim()) { // Si la cellule est vide
-              celluleJour.textContent = titreEvenement;
-              celluleJour.title = `Matière: ${event.title}\nLieu: ${event.location}\nProfesseur: ${event.teacher}\nDébut: ${event.start}\nFin: ${event.end}`;
-              celluleJour.style.backgroundColor = '#cce5ff';
-              celluleJour.style.cursor = 'default';
-            } else if (celluleJour && celluleJour.textContent.trim() && !celluleJour.textContent.includes(titreEvenement)) {
-              // Gérer les chevauchements (afficher plusieurs événements)
-              celluleJour.textContent += `\n${titreEvenement}`;
-              celluleJour.title += `\nMatière: ${event.title}\nLieu: ${event.location}\nProfesseur: ${event.teacher}\nDébut: ${event.start}\nFin: ${event.end}`;
-              celluleJour.style.backgroundColor = '#ffe0b2'; // Couleur différente pour les chevauchements
-            }
-          }
-        });
-      }
-    });
+          joursHeader.slice(1).forEach((jourHeader, indexJour) => {
+              const jour = jourHeader.textContent.trim();
+              const celluleJour = ligneHeure.querySelectorAll('td')[indexJour];
+  
+              if (celluleJour) {
+                  celluleJour.innerHTML = '';
+                  celluleJour.style.padding = '0';
+                  celluleJour.style.display = 'flex';
+                  celluleJour.style.flexDirection = 'row';
+                  celluleJour.style.alignItems = 'stretch';
+                  celluleJour.style.borderCollapse = 'collapse';
+  
+                  const evenementsDansCeCreneau = planningParJour[jour].filter(event => {
+                      const debutMinutes = timeToMinutes(event.start);
+                      const finMinutes = timeToMinutes(event.end);
+                      return heureLigneMinutes >= debutMinutes && heureLigneMinutes < finMinutes;
+                  });
+  
+                  const nombreEvenements = evenementsDansCeCreneau.length;
+  
+                  if (nombreEvenements > 0) {
+                      evenementsDansCeCreneau.forEach(evenement => {
+                          const eventDiv = document.createElement('div');
+                          eventDiv.innerHTML = `Matière: ${evenement.title}<br>Lieu: ${evenement.location}<br>Professeur: ${evenement.teacher}`;
+                          eventDiv.title = `Début: ${evenement.start}\nFin: ${evenement.end}`;
+                          eventDiv.style.backgroundColor = '#e0f7fa';
+                          eventDiv.style.display= 'flex'
+                          eventDiv.style.padding = '5px';
+                          eventDiv.style.margin = '2px';
+                          eventDiv.style.flexGrow = '1';
+                          eventDiv.style.textAlign = 'center';
+                          eventDiv.style.border = '1px solid #b2ebf2';
+                          const largeur = `${100 / nombreEvenements}%`;
+                          eventDiv.style.width = largeur;
+                          celluleJour.appendChild(eventDiv);
+                      });
+                  }
+              }
+          });
+      });
   }
   
   // Fonction utilitaire pour convertir une heure "HH:MM" en minutes
@@ -108,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
     heures.forEach(heure => {
         const row = document.createElement("tr");
 
-        const heureCell = document.createElement("th");
+        const heureCell = document.createElement("td");
+        heureCell.setAttribute('entete')
         heureCell.textContent = heure;
         row.appendChild(heureCell);
 
@@ -134,9 +140,3 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   
 });
-const monTableau = document.getElementById('planning-wrapper');
-
-monTableau.addEventListener('click', (event) => {
-    const target=event.target;
-    target.textContent="bonjour"
-})
