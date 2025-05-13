@@ -58,9 +58,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (nombreEvenements > 0) {
                         celluleJour.classList.add('has-event');
                     }
+                    if (nombreEvenements > 0) {
+                        evenementsDansCeCreneau.forEach(event => {                               
+                            const eventDiv = document.createElement('td');
+                            eventDiv.textContent = ` ${event.title}<br> ${event.location}<br> ${event.teacher}`;
+                            eventDiv.title = `Début: ${event.start}\nFin: ${event.end}`;
+                            //eventDiv.style.display='inline-block'
+                            if (event.type=='CM'){eventDiv.style.backgroundColor = couleur[0];}
+                            else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
+                            else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
+                            eventDiv.style.textAlign = 'center';
+                            eventDiv.style.height="70px";
+                            const largeur = 100 / evenementsDansCeCreneau.length;
+                            eventDiv.style.width = `${largeur}%`; // Utiliser des pourcentages pour la largeur
+                            
+                            celluleJour.appendChild(eventDiv);
+                            
+                        });
                     
+                }
+            });
+            id++;
         });
-    })
+    }
     function mergeIdenticalDivs() {
         const allTableCells = document.querySelectorAll('.planning-table tbody td');
         const a=allTableCells.length
