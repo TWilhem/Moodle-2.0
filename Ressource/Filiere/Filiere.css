@@ -10,7 +10,7 @@
 .bubble {
     color: rgb(0, 0, 0);
     font-weight: bold;
-    height: 200px;
+    height: 250px;
     border-radius: 20px;
     padding: 10px;
     display: flex;

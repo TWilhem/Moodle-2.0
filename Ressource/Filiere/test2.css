@@ -1,0 +1,201 @@
+.bubble-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: 40px;
+    width: 100%;
+
+}
+
+.bubble {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    height: 250px;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    text-decoration: none;
+    color: inherit;
+    position: relative; /* Important pour le z-index */
+    cursor: pointer;
+    z-index: 1; /* Assure que les bulles sont au-dessus du conteneur par défaut */
+}
+
+.Abubble {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    height: 200px;
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    border: 2px dashed #7f8c8d;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    cursor: pointer;
+}
+
+.bubble:hover, .Abubble:hover {
+    transform: scale(1.02);
+}
+
+.bubble p {
+    transition: opacity 0.3s ease;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 1024px) {
+    .bubble-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 768px) {
+    .bubble-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.Image {
+    min-height: 70%;
+    max-height: 70%;
+    width: 100%;
+    display:flex;
+    align-items:first baseline;
+    justify-content: center;
+    overflow: hidden;
+    
+}
+
+.Image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit:contain
+}
+
+.bubble-second, .sub-links {
+    display: flex;
+    width: 100%;
+    flex-direction:column; /* Organisation verticale du contenu étendu */
+    align-items: flex-start; /* Alignement à gauche par défaut */
+}
+
+.bubble-second-group {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 4px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    position: absolute;
+    bottom: 0; /* Coller au bas de la bulle */
+    left: 0;
+    right: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: inherit;
+    align-items: flex-start;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+}
+
+.bubble-second-group::-webkit-scrollbar {
+    display: none;
+}
+
+.bubble-second-group p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    text-align: center; /* Alignement à gauche */
+}
+
+.bubble-second {
+    flex-direction: row;
+    align-items: center;
+    max-width: 30%;
+    flex: 1 1 auto; /* Espacement entre les éléments secondaires */
+}
+
+.bubble-second-text {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #cccccc;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left; /* Alignement à gauche */
+    white-space: nowrap;
+    word-wrap: normal;
+    flex-grow: 1; /* Le texte prend l'espace disponible */
+}
+
+.sub-links {
+    display: none; /* Initialement caché */
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px; /* Indentation des sous-liens */
+}
+
+.sub-links a {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #cccccc;
+    text-decoration: none;
+    color: #333333;
+    font-size: 15px;
+    font-weight: 500;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    text-align: center;
+    white-space: nowrap; /* Important pour le défilement horizontal */
+    word-wrap: normal; /* Empêche le retour à la ligne des mots */
+    width: auto;
+    flex: 0 1 auto;
+}
+
+.bubble-second-group p,
+.bubble-second-text,
+.sub-links {
+    transition: all 0.3s ease;
+}
+
+.sub-links a:hover, .bubble-second-text:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.03);
+}
+
+.bubble-settings {
+    transform: scale(1.1);
+    color: #000;
+
+}
