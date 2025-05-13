@@ -18,16 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const joursHeader = Array.from(document.querySelectorAll('.planning-table thead th'));
         const lignesHeures = Array.from(document.querySelectorAll('.planning-table tbody tr'));
         const planningParJour = {};
+        let id=0
         dico={}
-        for (let i=0;i<data.length;i++){
-            dico[data[i].title]=0;
-        }
         joursHeader.slice(1).forEach(jourHeader => {
             const jour = jourHeader.textContent.trim();
             planningParJour[jour] = [];
         });
 
         data.forEach(event => {
+            dico[event.title]=commeavant(event)
             // **IMPORTANT : Assurez-vous que event.day correspond EXACTEMENT (en casse)
             // aux clés de planningParJour (qui sont extraites du header du tableau).**
             if (planningParJour[event.day]) {
@@ -36,8 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.warn(`Jour "${event.day}" non reconnu dans les données.`);
             }
         });
-        console.log(planningParJour)
+        //console.log(dico)
+        //console.log(planningParJour)
         lignesHeures.forEach(ligneHeure => {
+            
             const heureLigne = ligneHeure.querySelector('td').textContent.trim();
             const heureLigneMinutes = timeToMinutes(heureLigne);
 
@@ -54,50 +55,58 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                     const nombreEvenements = evenementsDansCeCreneau.length;
-
                     if (nombreEvenements > 0) {
-                        evenementsDansCeCreneau.forEach(event => {
-                            if (dico.key[event.title]>0){
-                                dico[event.title]+=1;
-                                console.log(dico)
-                            }
-                            else {
-                                dico[event.title]+=1;
-                            const eventDiv = document.createElement('div');
-                            eventDiv.innerHTML = ` ${event.title}<br> ${event.location}<br> ${event.teacher}`;
-                            eventDiv.title = `Début: ${event.start}\nFin: ${event.end}`;
-                            eventDiv.style.display='inline-block'
-                            if (event.type=='CM'){eventDiv.style.backgroundColor = couleur[0];}
-                            else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
-                            else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
-                            eventDiv.style.textAlign = 'center';
-                            eventDiv.style.height="70px";
-                            const largeur = 100 / evenementsDansCeCreneau.length;
-                            eventDiv.style.width = `${largeur}%`; // Utiliser des pourcentages pour la largeur
-                            
-                            celluleJour.appendChild(eventDiv);
-                            }
-                        });
+                        celluleJour.classList.add('has-event');
+                    }
                     
-                }
-            });
         });
-    }
+    })
+    function mergeIdenticalDivs() {
+        const allTableCells = document.querySelectorAll('.planning-table tbody td');
+        const a=allTableCells.length
+        for (let i=0;i<a-8;i++){
+            const currentCells = allTableCells[i];
+            const nextCells = allTableCells[i + 8];
+            const currentEventDivs = Array.from(currentCells.querySelectorAll('div'));
+            const nextEventDivs = Array.from(nextCells.querySelectorAll('div'));
+            currentEventDivs.forEach(currentDiv =>{
+                nextEventDivs.forEach(nextDiv =>{
+                    if (currentDiv.title==nextDiv.title  ){
+                        currentDiv.style.marginBottom='0';
+                        nextDiv.style.marginTop='0';
+                        currentDiv.style.borderBottom='none';
+                        nextDiv.style.borderTop='none'; 
+                        nextDiv.innerHTML='';
+                        currentDiv.style.paddingBottom = '0';
+                        nextDiv.style.paddingTop = '0';
+                    }
+                })
+            })
+                        
+            }
+
+           }
+        
+        
+    
+    
+    // Call the merging function after the table is populated
+    
+    
+
     function commeavant(data){
-        for (let i=0;i<data.length;i++){
-            debut=data.start
-            a=debut.split(":")
-            a[0]=a[0]*60
-            b=a[0]+a[1]
-            b=b/30
-            fin=data.end
-            c=fin.split(":")
-            c[0]=c[0]*60
-            d=c[0]+c[1]
-            d=d/30
-            e=(d-b)/100
+        debut=data.start;
+        a=debut.split(":");
+        a[0]=a[0]*60;
+        b=a[0]+a[1];
+        fin=data.end;
+        c=fin.split(":");
+        c[0]=c[0]*60;
+        d=c[0]+c[1];
+        e=(d-b)/3000;
+        return e;
         }
-        }
+        
 
         
     
@@ -113,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heures = genererHeures(heureDebut, heureFin, dureeCreneau);
 
     const container = document.getElementById("Grid-planning");
-
+    let id=0;
     const table = document.createElement("table");
     table.classList.add("planning-table");
 
@@ -144,8 +153,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         jours.forEach(() => {
             const cell = document.createElement("td");
+            cell.setAttribute("id",id);
             cell.classList.add("planning-cell");
             row.appendChild(cell);
+            id++;
         });
 
         tbody.appendChild(row);
@@ -161,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   .then(data => {
     remplissage(data)
+    mergeIdenticalDivs();
     
   })
   
