@@ -1,21 +1,15 @@
 [
   {
-    "day": "Lundi",
-    "start": "09:30",
-    "end": "13:30",
-    "title": "R206 Numérisation",
-    "location": "Beziers / IUT de Béziers / 1/2",
-    "teacher": "BORELLY CHRISTOPHE",
-    "type":"CM"
-  },
-  {
     "day": "Mardi",
     "start": "08:00",
     "end": "10:00",
     "title": "SAE Application Web",
     "location": "Beziers / IUT de Béziers / 1/2",
     "teacher": "BORELLY CHRISTOPHE",
-    "type":"TD"
+    "type":"TD",
+    "filiere":"MMI",
+    "annee":"deuxieme annee",
+    "groupe":"B1"
   },
   { 
     "day": "Lundi",
@@ -24,6 +18,9 @@
     "title": "R205 Numérisation",
     "location": "Beziers / IUT de Béziers / 1/2",
     "teacher": "BORELLY CHRISTOPHE",
-    "type":"TP"
+    "type":"TP",
+    "filiere":"TC",
+    "annee":"troisieme annee",
+    "groupe":"A1"
   }
 ]

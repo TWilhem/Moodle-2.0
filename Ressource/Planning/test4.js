@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heureDebut = 8;
     const heureFin = 19;
     const dureeCreneau = 30;
-    const couleurEvenement = ['#e0f7fa', '#fff081', '#ff9081'];
-    const couleurParDefaut = '#ffffff';
+    const couleur=['#e0f7fa','#fff081','#ff9081']
 
     function formatHeure(heure, minute) {
         return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
@@ -19,15 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const joursHeader = Array.from(document.querySelectorAll('.planning-table thead th'));
         const lignesHeures = Array.from(document.querySelectorAll('.planning-table tbody tr'));
         const planningParJour = {};
-        const cellulesTraitees = {};
-
+        let id=0
         joursHeader.slice(1).forEach(jourHeader => {
             const jour = jourHeader.textContent.trim();
             planningParJour[jour] = [];
-            cellulesTraitees[jour] = {};
-            for (let i = 0; i < lignesHeures.length; i++) {
-                cellulesTraitees[jour][i] = false;
-            }
         });
 
         data.forEach(event => {
@@ -36,68 +30,113 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 console.warn(`Jour "${event.day}" non reconnu dans les données.`);
             }
-        });
+        })
+        lignesHeures.forEach(ligneHeure => {
 
-        lignesHeures.forEach((ligneHeure, indexLigneHeure) => {
-            const heureLigneMinutes = timeToMinutes(ligneHeure.querySelector('td').textContent.trim());
+            const heureLigne = ligneHeure.querySelector('td').textContent.trim();
+            const heureLigneMinutes = timeToMinutes(heureLigne);
 
             joursHeader.slice(1).forEach((jourHeader, indexJour) => {
+
                 const jour = jourHeader.textContent.trim();
-                const cellulePlanning = document.getElementById(indexLigneHeure * jours.length + indexJour);
-                cellulePlanning.style.backgroundColor = couleurParDefaut;
+                const celluleJour = document.getElementById(id);
+                id++
 
-                if (!cellulesTraitees[jour][indexLigneHeure]) {
-                    const evenementsDebutantIci = planningParJour[jour].filter(event => timeToMinutes(event.start) === heureLigneMinutes);
+                const evenementsDansCeCreneau = planningParJour[jour].filter(event => {
+                        const debutMinutes = timeToMinutes(event.start);
+                        const finMinutes = timeToMinutes(event.end);
+                        return heureLigneMinutes >= debutMinutes && heureLigneMinutes < finMinutes;
+                    });
 
-                    if (evenementsDebutantIci.length > 0) {
-                        cellulePlanning.classList.add('has-event');
-                        cellulePlanning.innerHTML = '';
+                    const nombreEvenements = evenementsDansCeCreneau.length;
+                    if (nombreEvenements > 0) {
+                        celluleJour.style.display = 'inlineflex';
+                        evenementsDansCeCreneau.forEach(event => {
 
-                        const nombreEvenements = evenementsDebutantIci.length;
-                        const largeurParEvenement = 100 / nombreEvenements;
+                            const eventDiv = document.createElement('td');
+                            eventDiv.textContent = ` ${event.title}\n ${event.location}\n${event.teacher}`;
+                            eventDiv.title = `Début: ${event.start}Fin: ${event.end}`;
+                            eventDiv.setAttribute("class","div");
+                            eventDiv.setAttribute("id", event.title);
+                            if (event.type=='CM'){eventDiv.style.backgroundColor = couleur[0];}
+                            else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
+                            else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
+                            eventDiv.style.textAlign = 'center';
+                            const heightDiv=940/23
+                            eventDiv.style.height=`${heightDiv}px`;
+                            const largeur = 100 / nombreEvenements;
+                            eventDiv.style.width = `${largeur}%`;
+                            celluleJour.appendChild(eventDiv);
 
-                        evenementsDebutantIci.forEach(event => {
-                            const eventTd = document.createElement('td');
-                            eventTd.textContent = ` ${event.title}\n ${event.location}\n ${event.teacher}`;
-                            eventTd.title = `Début: ${event.start}\nFin: ${event.end}`;
-                            eventTd.setAttribute("id", event.title);
-                            if (event.type == 'CM') {
-                                eventTd.style.backgroundColor = couleurEvenement[0];
-                            } else if (event.type == 'TD') {
-                                eventTd.style.backgroundColor = couleurEvenement[1];
-                            } else if (event.type == 'TP') {
-                                eventTd.style.backgroundColor = couleurEvenement[2];
-                            }
-                            eventTd.style.textAlign = 'center';
-                            eventTd.style.height = "70px";
-                            eventTd.style.width = `${largeurParEvenement}%`;
-
-                            const dureeEnMinutes = timeToMinutes(event.end) - timeToMinutes(event.start);
-                            const rowSpan = Math.max(1, Math.round(dureeEnMinutes / dureeCreneau)); // Assurez-vous que rowSpan est au moins 1
-                            eventTd.rowSpan = rowSpan;
-
-                            cellulePlanning.appendChild(eventTd);
-
-                            for (let i = 1; i < rowSpan; i++) {
-                                if (indexLigneHeure + i < lignesHeures.length) { // Vérifiez les limites du tableau
-                                    cellulesTraitees[jour][indexLigneHeure + i] = true;
-                                }
-                            }
                         });
+                        if (celluleJour.lastChild) {
+                            celluleJour.lastChild.style.borderRight = 'none';
+                        }
                     }
-                } else {
-                    cellulePlanning.innerHTML = '';
+                })
+            })
+        }
+
+
+    function mergeIdenticalCells() {
+        function areEventsEqual(div1, div2) {
+            return div1 && div2 && div1.textContent.trim() === div2.textContent.trim();
+        }
+
+        const eventCells = Array.from(document.querySelectorAll('.planning-table tbody td:not(#entete)'));
+
+        for (let i = 0; i < eventCells.length; i++) {
+            const currentCell = eventCells[i];
+            const currentDiv = currentCell.querySelector('.div');
+
+            if (currentDiv && !currentCell.dataset.merged) {
+                let colspan = 1;
+                let nextHorizontalCell = eventCells[i + 1];
+
+                while (nextHorizontalCell && !nextHorizontalCell.dataset.merged && areEventsEqual(currentDiv, nextHorizontalCell.querySelector('.div')) && currentCell.parentNode === nextHorizontalCell.parentNode) {
+                    colspan++;
+                    nextHorizontalCell.dataset.merged = true;
+                    nextHorizontalCell = eventCells[i + colspan];
                 }
-            });
+
+                if (colspan > 1) {
+                    currentCell.setAttribute('colspan', colspan);
+                }
+
+                let rowspan = 1;
+                const tableRows = Array.from(document.querySelectorAll('.planning-table tbody tr'));
+                const currentRowIndex = currentCell.parentNode.rowIndex - 1;
+                const currentColumnIndex = currentCell.cellIndex;
+
+                for (let j = currentRowIndex + 1; j < tableRows.length; j++) {
+                    const nextVerticalRow = tableRows[j];
+                    const nextVerticalCell = nextVerticalRow.cells[currentColumnIndex];
+
+                    if (nextVerticalCell && !nextVerticalCell.dataset.merged && areEventsEqual(currentDiv, nextVerticalCell.querySelector('.div'))) {
+                        rowspan++;
+                        nextVerticalCell.dataset.merged = true;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (rowspan > 1) {
+                    currentCell.setAttribute('rowspan', rowspan);
+                    const heightDiv2=(rowspan+1)*940/23
+                    currentCell.style.height=`${heightDiv2}px`;
+                    
+
+                }
+            }
+        }
+
+        eventCells.forEach(cell => {
+            if (cell.dataset.merged) {
+                cell.style.display = 'none';
+            }
         });
     }
 
-    function commeavant(data) {
-        const debutMinutes = timeToMinutes(data.start);
-        const finMinutes = timeToMinutes(data.end);
-        const dureeEnCreneaux = (finMinutes - debutMinutes) / dureeCreneau;
-        return dureeEnCreneaux;
-    }
 
     function genererHeures(debut, fin, intervalle) {
         const creneaux = [];
@@ -111,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heures = genererHeures(heureDebut, heureFin, dureeCreneau);
 
     const container = document.getElementById("Grid-planning");
-    let id2 = 0;
+    let id2=0;
     const table = document.createElement("table");
     table.classList.add("planning-table");
 
@@ -136,15 +175,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const row = document.createElement("tr");
 
         const heureCell = document.createElement("td");
-        heureCell.setAttribute("id", "entete");
+        heureCell.setAttribute("id","entete");
         heureCell.textContent = heure;
         row.appendChild(heureCell);
 
         jours.forEach(() => {
             const cell = document.createElement("td");
-            cell.setAttribute("id", id2);
+            cell.setAttribute("id",id2);
             cell.classList.add("planning-cell");
-            cell.style.backgroundColor = couleurParDefaut;
             row.appendChild(cell);
             id2++;
         });
@@ -156,10 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(table);
 
     fetch('Planning.json')
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            remplissage(data);
-        });
+  .then(response => {
+
+    return response.json();
+  })
+  .then(data => {
+    remplissage(data);
+    mergeIdenticalCells(); // Call the merging function AFTER remplissage
+  })
+
 });

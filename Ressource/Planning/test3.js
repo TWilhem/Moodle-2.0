@@ -40,10 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const heureLigneMinutes = timeToMinutes(heureLigne);
 
             joursHeader.slice(1).forEach((jourHeader, indexJour) => {
-
+                
                 const jour = jourHeader.textContent.trim();
                 const celluleJour = document.getElementById(id);
                 id++
+                
                 const evenementsDansCeCreneau = planningParJour[jour].filter(event => {
                         const debutMinutes = timeToMinutes(event.start);
                         const finMinutes = timeToMinutes(event.end);
@@ -52,30 +53,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     const nombreEvenements = evenementsDansCeCreneau.length;
                     if (nombreEvenements > 0) {
-                        celluleJour.classList.add('has-event');
-
-                                evenementsDansCeCreneau.forEach(event => {                               
+                        celluleJour.style.display = 'inlineflex'; // Utiliser Flexbox pour disposer les événements
+                    
+                        
+                                evenementsDansCeCreneau.forEach(event => {    
+                                                               
                                     const eventDiv = document.createElement('td');
-                                    eventDiv.textContent = ` ${event.title}\n ${event.location}\n ${event.teacher}`;
-                                    eventDiv.title = `Début: ${event.start}\nFin: ${event.end}`;
-                                    eventDiv.setAttribute("id",event.title)
+                                    eventDiv.textContent = ` ${event.title}\n ${event.location}\n${event.teacher}`;
+                                    eventDiv.title = `Début: ${event.start}Fin: ${event.end}`;
+                                    eventDiv.setAttribute("class","div");
+                                    eventDiv.setAttribute("id", event.title);
                                     //eventDiv.style.display='inline-block'
                                     if (event.type=='CM'){eventDiv.style.backgroundColor = couleur[0];}
                                     else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
                                     else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
                                     eventDiv.style.textAlign = 'center';
-                                    eventDiv.style.height="70px";
+                                    eventDiv.style.height="80px";
                                     const largeur = 100 / evenementsDansCeCreneau.length;
                                     eventDiv.style.width = `${largeur}%`; // Utiliser des pourcentages pour la largeur
-                                    
                                     celluleJour.appendChild(eventDiv);
                                     
                                 });
-                            
+                            if (celluleJour.lastChild) {
+                    celluleJour.lastChild.style.borderRight = 'none';
                         }
-                        
+                    }  
                 })
-            }) 
+            })
         }       
                     
         
@@ -83,54 +87,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
 
-    function mergeIdenticalDivs(data) {
-        for (let i=0;i<8;i++){
-            for (let j=0;j<22;j++){
-                const cell= document.getElementById(i*8+j);
-                    if (cell.classList.contains("has-event")) {
-                        
-                        for (let k=0;k<data.length;k++){
-                            const divi=document.getElementById(data[k].title);
-                            
-                            if(data[k].title==divi.id){
-                                let nombre=commeavant(data[k]);
-                                
-                                divi.style.rowSpan=nombre;
-                                console.log(divi)
-
-                                
-                            
-                            //divi=cell.getElementById(info)
-                        }
-                       
-                    }
-            }
-            }
-        }
-        
+   function areEventsEqual(div1, div2) {
+        return div1 && div2 && div1.textContent.trim() === div2.textContent.trim();
     }
-        
-    
-    
-    // Call the merging function after the table is populated
-    
-    
 
-    function commeavant(data){
-        debut=data.start;
-        a=debut.split(":");
-        a[0]=a[0]*60;
-        b=a[0]+a[1];
-        fin=data.end;
-        c=fin.split(":");
-        c[0]=c[0]*60;
-        d=c[0]+c[1];
-        e=(d-b)/3000;
-        return e;
+    // Get all the data cells with event divs
+    const eventCells = Array.from(document.querySelectorAll('.planning-table tbody td:not(#entete)'));
+
+    // Iterate through the event cells to find and merge identical ones
+    for (let i = 0; i < eventCells.length; i++) {
+        const currentCell = eventCells[i];
+        const currentDiv = currentCell.querySelector('.div');
+
+        if (currentDiv && !currentCell.dataset.merged) { // Only process if it has an event and is not already merged
+
+            // --- Merge Horizontally (Colspan) ---
+            let colspan = 1;
+            let nextHorizontalCell = eventCells[i + 1];
+
+            while (nextHorizontalCell && !nextHorizontalCell.dataset.merged && areEventsEqual(currentDiv, nextHorizontalCell.querySelector('.div')) && currentCell.parentNode === nextHorizontalCell.parentNode) {
+                colspan++;
+                nextHorizontalCell.dataset.merged = true; // Mark as merged
+                nextHorizontalCell = eventCells[i + colspan];
+            }
+
+            if (colspan > 1) {
+                currentCell.setAttribute('colspan', colspan);
+            }
+
+            // --- Merge Vertically (Rowspan) ---
+            let rowspan = 1;
+            const tableRows = Array.from(document.querySelectorAll('.planning-table tbody tr'));
+            const currentRowIndex = currentCell.parentNode.rowIndex - 1; // Adjust for header row
+            const currentColumnIndex = currentCell.cellIndex;
+
+            for (let j = currentRowIndex + 1; j < tableRows.length; j++) {
+                const nextVerticalRow = tableRows[j];
+                const nextVerticalCell = nextVerticalRow.cells[currentColumnIndex];
+
+                if (nextVerticalCell && !nextVerticalCell.dataset.merged && areEventsEqual(currentDiv, nextVerticalCell.querySelector('.div'))) {
+                    rowspan++;
+                    nextVerticalCell.dataset.merged = true; // Mark as merged
+                } else {
+                    break; // Stop if the next cell is different or already merged
+                }
+            }
+
+            if (rowspan > 1) {
+                currentCell.setAttribute('rowspan', rowspan);
+            }
         }
-        
+    }
 
-        
+    // Finally, hide all the cells that were marked as merged
+    eventCells.forEach(cell => {
+        if (cell.dataset.merged) {
+            cell.style.display = 'none';
+        }
+    });
+
     
     function genererHeures(debut, fin, intervalle) {
         const creneaux = [];
@@ -194,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   .then(data => {
     remplissage(data)
-    mergeIdenticalDivs(data);
     
   })
   

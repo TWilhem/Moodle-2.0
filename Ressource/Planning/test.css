@@ -44,16 +44,7 @@
     white-space: nowrap;
     display: block;
 }
-.event-cm {
-    background-color: #60a5fa;
-}
-.event-td {
-    background-color: #a7f3d0;
-    color: #134e4a;
-}
-.event-tp {
-    background-color: #fca5a5;
-}
+
 
 #entete{
     background-color: #f9fafb;
