@@ -4,6 +4,7 @@
     "start": "08:00",
     "end": "10:00",
     "title": "SAE Application Web",
+    "salle":"Olympe de Gouges",
     "location": "Beziers / IUT de Béziers / 1/2",
     "teacher": "BORELLY CHRISTOPHE",
     "type":"TD",
@@ -11,16 +12,18 @@
     "annee":"deuxieme annee",
     "groupe":"B1"
   },
-  { 
+  {
     "day": "Lundi",
     "start": "08:30",
     "end": "11:30",
     "title": "R205 Numérisation",
+    "salle":"C009-RT",
     "location": "Beziers / IUT de Béziers / 1/2",
     "teacher": "BORELLY CHRISTOPHE",
     "type":"TP",
     "filiere":"TC",
     "annee":"troisieme annee",
     "groupe":"A1"
-  }
+}
+  
 ]

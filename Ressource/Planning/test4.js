@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         evenementsDansCeCreneau.forEach(event => {
 
                             const eventDiv = document.createElement('td');
-                            eventDiv.textContent = ` ${event.title}\n ${event.location}\n${event.teacher}`;
+                            eventDiv.textContent = ` ${event.title} \n ${event.salle} \n ${event.location} \n ${event.teacher}`;
                             eventDiv.title = `Début: ${event.start}Fin: ${event.end}`;
                             eventDiv.setAttribute("class","div");
                             eventDiv.setAttribute("id", event.title);
@@ -62,16 +62,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
                             else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
                             eventDiv.style.textAlign = 'center';
-                            const heightDiv=940/23
+                            const heightDiv=40;
+                            console.log(heightDiv);
+                            eventDiv.style.maxHeight= `${heightDiv}px`;
                             eventDiv.style.height=`${heightDiv}px`;
                             const largeur = 100 / nombreEvenements;
                             eventDiv.style.width = `${largeur}%`;
                             celluleJour.appendChild(eventDiv);
 
                         });
-                        if (celluleJour.lastChild) {
-                            celluleJour.lastChild.style.borderRight = 'none';
-                        }
+                        
+                        
                     }
                 })
             })
@@ -122,9 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (rowspan > 1) {
                     currentCell.setAttribute('rowspan', rowspan);
-                    const heightDiv2=(rowspan+1)*940/23
-                    currentCell.style.height=`${heightDiv2}px`;
-                    
+                    const heightDiv2=(940/23)*rowspan;
+                    //console.log(rowspan)
+                    //console.log(heightDiv2)
+                    currentDiv.style.maxHeight='none'
+                    currentDiv.style.height=`${heightDiv2}px`;                  
 
                 }
             }
