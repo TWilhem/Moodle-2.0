@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heureFin = 19;
     const dureeCreneau = 30;
     const couleur=['#e0f7fa','#fff081','#ff9081']
-
+    const date=creationcalendrier(2,9,2024)
     function formatHeure(heure, minute) {
         return `${String(heure).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
     }
@@ -13,9 +13,89 @@ document.addEventListener("DOMContentLoaded", () => {
         const [hours, minutes] = time.split(':').map(Number);
         return hours * 60 + minutes;
     }
+    function creationcalendrier(jour_debut,mois_debut,annee_debut){
+        calendrier=[];
+        const nom_jours=["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        let jour=jour_debut;
+        let mois=mois_debut;
+        let annee=annee_debut;
+        let i=0;
+        while (i<371){
+            if (mois==1 || mois==3 || mois==5 || mois==7 || mois==8 || mois==10){
+                while (jour<=31){
+                    calendrier.push(nom_jours[i%7]+" " + jour+"/"+mois+"/"+annee);
+                    jour++;
+                    i++;
+                    if (i==371){
+                        return calendrier;
+                    }                   
+                }
 
+                mois++;
+                jour=1;
+                if (i==371){
+                        return calendrier;
+                    }   
+            }
+            else if (mois==4 || mois==6 ||mois==9 ||mois==11){
+                while (jour<=30){
+                    calendrier.push(nom_jours[i%7]+" " + jour+"/"+mois+"/"+annee);
+                    jour++;
+                    i++; 
+                    if (i==371){
+                        return calendrier;
+                    }   
+                }
+                mois++;
+                jour=1;
+                if (i==371){
+                        return calendrier;
+                    }   
+            }
+            else if (mois==2){
+                while (jour<=28){
+                    calendrier.push(nom_jours[i%7]+" " + jour+"/"+mois+"/"+annee);
+                    jour++;
+                    i++;
+                    if (i==371){
+                        return calendrier;
+                    }   
+                }
+                mois++;
+                jour=1;
+
+                if (i==371){
+                        return calendrier;
+                    }  
+            }
+            else if (mois==12){
+                while(jour<=31){
+                    calendrier.push(nom_jours[i%7]+" " + jour+"/"+mois+"/"+annee);
+                    jour++;
+                    i++;
+                    if (i==371){
+                        return calendrier;
+                    }  
+                }
+                annee++;
+                mois=1;
+                jour=1;
+                if (i==371){
+                        return calendrier;
+                    }  
+
+            }
+
+
+
+        }
+
+        
+        
+        return calendrier
+    }
     function remplissage(data) {
-        const joursHeader = Array.from(document.querySelectorAll('.planning-table thead th'));
+        const joursHeader = Array.from(document.querySelectorAll('.planning-table thead td'));
         const lignesHeures = Array.from(document.querySelectorAll('.planning-table tbody tr'));
         const planningParJour = {};
         let id=0
@@ -55,16 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             const eventDiv = document.createElement('td');
                             eventDiv.textContent = ` ${event.title} \n ${event.salle} \n ${event.location} \n ${event.teacher}`;
-                            eventDiv.title = `Début: ${event.start}Fin: ${event.end}`;
+                            eventDiv.title = `Début: ${event.start} Fin: ${event.end}`;
                             eventDiv.setAttribute("class","div");
                             eventDiv.setAttribute("id", event.title);
                             if (event.type=='CM'){eventDiv.style.backgroundColor = couleur[0];}
                             else if (event.type=='TD'){ eventDiv.style.backgroundColor = couleur[1];}
                             else if (event.type=='TP'){ eventDiv.style.backgroundColor = couleur[2];}
                             eventDiv.style.textAlign = 'center';
-                            const heightDiv=40;
-                            console.log(heightDiv);
-                            eventDiv.style.maxHeight= `${heightDiv}px`;
+                            const heightDiv=900/25;
+                            eventDiv.style.maxHeight=`${heightDiv}px` ;
                             eventDiv.style.height=`${heightDiv}px`;
                             const largeur = 100 / nombreEvenements;
                             eventDiv.style.width = `${largeur}%`;
@@ -123,10 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (rowspan > 1) {
                     currentCell.setAttribute('rowspan', rowspan);
-                    const heightDiv2=(940/23)*rowspan;
-                    //console.log(rowspan)
-                    //console.log(heightDiv2)
-                    currentDiv.style.maxHeight='none'
+                    const heightDiv2=(900/23)*rowspan;
+                    currentDiv.style.maxHeight=`${heightDiv2}px`;
                     currentDiv.style.height=`${heightDiv2}px`;                  
 
                 }
@@ -149,26 +226,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         return creneaux;
     }
-
+    let semaine=0
+    function createtable(semaine){
     const heures = genererHeures(heureDebut, heureFin, dureeCreneau);
-
     const container = document.getElementById("Grid-planning");
+    const oldTable = container.querySelector(".planning-table");
+    if (oldTable) {
+        container.removeChild(oldTable);
+    }
+    const oldBarre = container.querySelector(".change-semaine");
+    if (oldBarre) {
+        container.removeChild(oldBarre);
+    }
     let id2=0;
     const table = document.createElement("table");
     table.classList.add("planning-table");
 
     const thead = document.createElement("thead");
     const headRow = document.createElement("tr");
-
-    const emptyTh = document.createElement("th");
+    const emptyTh = document.createElement("td");
+    emptyTh.setAttribute("id","entete")
     headRow.appendChild(emptyTh);
-
-    jours.forEach(jour => {
-        const th = document.createElement("th");
-        th.textContent = jour;
+    for (let i=0;i<7;i++){
+        const th = document.createElement("td");
+        th.textContent = date[semaine*7+i];
+        th.setAttribute("id",'entete')
         headRow.appendChild(th);
-    });
-
+    }
     thead.appendChild(headRow);
     table.appendChild(thead);
 
@@ -195,8 +279,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     table.appendChild(tbody);
     container.appendChild(table);
-
-    fetch('Planning.json')
+    const barre= document.createElement("div");
+    barre.setAttribute("class","change-semaine")
+    barre.style.height="31px";
+    const previous=document.createElement("div");
+    previous.setAttribute("class","div2");
+    if (semaine !=0){
+        const previousbtn=document.createElement("button");
+        previousbtn.setAttribute("class",'btn');
+        previousbtn.setAttribute("id","previous");
+        previousbtn.textContent="semaine précédente";  
+        previousbtn.addEventListener('click', () => {
+            semaine = semaine - 1;
+            createtable(semaine);
+        });
+        previous.appendChild(previousbtn);
+    }
+    barre.appendChild(previous);
+    const next=document.createElement("div");
+    next.setAttribute("class","div2");
+    if (semaine!=53){
+    const nextbtn=document.createElement("button")
+    nextbtn.setAttribute("class",'btn');
+    nextbtn.setAttribute("id","next");
+    nextbtn.textContent="semaine suivante";
+    nextbtn.addEventListener('click', () => {
+            semaine = semaine + 1;
+            createtable(semaine);
+        });
+    next.appendChild(nextbtn);
+}
+    barre.appendChild(next);
+    container.appendChild(barre);
+     fetch('Planning.json')
   .then(response => {
 
     return response.json();
@@ -205,5 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
     remplissage(data);
     mergeIdenticalCells(); // Call the merging function AFTER remplissage
   })
-
+}
+   
+    
+  createtable(semaine)
 });
