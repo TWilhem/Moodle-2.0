@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RegistrationForm</title>
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Inscription</h2>
+        <form method="POST" action="../Php/Inscription.php">
+            <div class="input-field">
+                <input type="text" name="nom" id="nom" required placeholder=" ">
+                <label for="nom">Nom</label>
+            </div>
+            <div class="input-field">
+                <input type="text" name="prenom" id="prenom" required placeholder=" ">
+                <label for="prenom">Prénom</label>
+            </div>
+            <div class="input-field">
+                <input type="email" name="email" id="email" required placeholder=" ">
+                <label for="email">Adresse Email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" id="password" required placeholder=" ">
+                <label for="password">Mot de passe</label>
+                <i class="fa-solid fa-eye-slash toggle-password" id="togglePassword"></i>
+            </div>
+            <div class="input-field">
+                <input type="password" name="confirm-password" id="confirm-password" required placeholder=" ">
+                <label for="confirm-password">Confirmation du mot de passe</label>
+            </div>
+            <button type="submit" class="btn-submit">Inscription</button>
+        </form>
+        <div class="text-center">
+            <p>Déjà un compte? <a href="./Connexion.html">Connexion</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
