@@ -1,0 +1,37 @@
+[
+    {
+        "titre":"Tournoi multisport",
+        "image":"./tournoi-multisport.png",
+        "description": "Le 10 avril 2025 à eu lieu le premier Tournoi Multisport Etudiant. Au programme : padel, volley-ball, pétanque, jeux vidéo... Et sutout plus de 100 étudiant rassemblé "
+    },
+    {
+        "titre":"je filme ma formation",
+        "image":"./je-filme-ma-formation.jpg",
+        "description": "L'IUT de béziers a remporté l'édition 2025 du concours national 'Je filme ma formation'. Le département TC e reçu le Prix Diamant et le département MMI deux Prix de Bronze"
+    },
+    {
+        "titre": "La chrysalide de Satin Rouge",
+        "image": "./la-Chrysalide.jpg",
+        "description": "Le 29 avirl 2025, au théâtre des Franciscains à Béziers le département TC a presenté le moyen-metrage rélisé par les 2e et 3e année TC avec un projet ayant duré deux ans"
+    },
+    {
+        "titre": "IA DAY",
+        "image": "./IA-day.png",
+        "description": "le 8 avril 2025 l'IUT de Béziers a accueilli une journée que le thème 'L'Intelligence Artificielle pour l'industrie: enjeux et perspectives'. Cette journée a eu comme objectif de démystifier l'IA"
+    },
+    {
+        "titre": "Forum de l'alternance",
+        "image": "./forum-alternance.png",
+        "description": "Le 3 avril l'IUT de Béziers à organisé un forum de l'alternance pour toutes les filières. Pour permettre une rencontre entre des entreprises qui recrutent et des étudiants en recherche de contrats pour septembre"
+    },
+    {
+        "titre": " Conférence : Sorcières Sorciers",
+        "image": "./sorcières.png",
+        "description": "Le 19 mars 2025 l'IUT a acceuilli une conférence de Michelle Zancarini-Fournel pour présenté son essai 'Lettre aux jeunes féministes' où elle explore l'histoire des sorcières et les liens avec les combats féministes actuels"
+    },
+    {
+        "titre": " 6e Hackathon",
+        "image": "./hackathon.jpg",
+        "description": "Du 11 au" 
+    }
+]
