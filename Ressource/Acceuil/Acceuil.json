@@ -32,6 +32,11 @@
     {
         "titre": " 6e Hackathon",
         "image": "./hackathon.jpg",
-        "description": "Du 11 au" 
+        "description": "Du 11 au 14 mars 2025, l'IUT a organisé le 6e Hackathon. Cette édition à porté sur le thème de 'La transition écologique et le développement soutenable"
+    },
+    {
+        "titre": "Portes ouvertes",
+        "image": "./porte-ouverte.png",
+        "description": "Le samedi 8 février 2025 ont eu lieu les protes ouverte de l'IUT. Dans l'objectif de faire découvrir l'IUT aux lycéens et de leur permettrent d'échanger avec les étudiants et enseignants"
     }
 ]
