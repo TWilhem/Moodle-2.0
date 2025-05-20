@@ -1,0 +1,112 @@
+.bubble-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.index-list {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+}
+
+.index-item {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.index-item:hover {
+    background: #45a049;
+}
+
+.main-bubble {
+    background: #f5f5f5;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cours-block {
+    background: white;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.description {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+
+.date-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 0.5em;
+}
+
+.download-link {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.download-link:hover {
+    background: #45a049;
+}
+
+/* Styles pour les boutons d'édition et d'ajout */
+.edit-button, .add-button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background: #2196F3;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.edit-button:hover, .add-button:hover {
+    background: #0b7dda;
+}
+
+/* Style pour le formulaire d'édition */
+.edit-form {
+    background: white;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: none;
+}
+
+.edit-form input, .edit-form textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.edit-form button {
+    padding: 0.5em 1em;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-form button:hover {
+    background: #45a049;
+}

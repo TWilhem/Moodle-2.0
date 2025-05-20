@@ -1,0 +1,36 @@
+.bubble-container {
+    max-width: 800px;
+    margin-left: 40px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.cours-block {
+    background: white;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.description {
+    font-style: italic;
+    margin-bottom: 0.5em;
+}
+
+.filter-buttons {
+    margin-bottom: 20px;
+}
+
+.filter-buttons button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.cours-block {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

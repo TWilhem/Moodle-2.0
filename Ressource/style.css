@@ -1,4 +1,5 @@
-label {
+/* Style du label (menu header) */
+.label {
     position: fixed;
     top: 0;
     left: 0;
@@ -42,6 +43,7 @@ body {
     padding-top: 60px;
 }
 
+/* Cacher le menu au-delà de 1024px, et montrer l'icône burger */
 @media (max-width: 1024px) {
     .Menu {
         display: none;
@@ -52,33 +54,46 @@ body {
     }
 }
 
+/* Sidebar style */
 .sidebar {
     position: fixed;
     top: 0;
     left: -120px;
     width: 100px;
-    height: 100vh;
+    height: 93vh;
     background-color: black;
     color: white;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 60px 40px 60px 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transition: left 0.3s ease;
     z-index: 999;
 }
 
+/* Active class for sidebar */
 .sidebar.active {
     left: 0;
 }
 
+/* Liens dans le menu principal et la sidebar */
 .Menu a,
+.Menu i,
 .sidebar a {
     color: white;
     text-decoration: none;
-    font-size: 18px;
     display: block;
     cursor: pointer;
+}
+
+.Menu a,
+.sidebar a {
+    font-size: 18px;
+}
+
+.Menu i {
+    font-size: 22px;
 }
 
 .sidebar a {
@@ -100,4 +115,81 @@ body {
     font-size: 18px;
     display: block;
     margin: 0px;
+}
+
+/* Cacher les liens "Paramètre" et "Déconnexion" par défaut */
+#linksMenu {
+    display: none;
+    background-color: #333;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 100%;
+    max-width: 80px;
+    z-index: 1001;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Pour garder la liste fixée à l'écran */
+#linksMenu.fixed {
+    position: fixed;
+    top: 60px;
+}
+
+#linksMenu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    font-size: 12px
+}
+
+/* Ajouter un effet hover pour les liens supplémentaires */
+#linksMenu a:hover {
+    background-color: #555;
+}
+
+.Menu a i,
+.sidebar a i {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    display: inline;
+}
+
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#linksSidebar {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+#linksSidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+.sidebar p.Presentation {
+    font-size: 14px;
+}
+
+span.ligne {
+    display: block;
+}
+span.ligne:empty {
+    display: none;
 }

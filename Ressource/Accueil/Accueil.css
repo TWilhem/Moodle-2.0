@@ -1,0 +1,72 @@
+.bubble-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour mieux placer les blocs */
+    gap: 20px;
+    padding: 20px;
+    margin: 0 40px;
+    box-sizing: border-box;
+}
+
+.bubble {
+    display: flex;
+    height: 200px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    background: linear-gradient(to top right, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+    color: #fff;
+}
+
+.bubble:hover {
+    transform: scale(1.02);
+}
+
+.bubble img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    background-color: #000;
+}
+
+.Description {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    background: rgba(0, 0, 0, 0.4); /* Pour bien séparer du fond */
+    color: white;
+}
+
+.Description p {
+    margin: 0;
+    padding-bottom: 5px;
+    line-height: 1.4;
+}
+
+.Description p strong {
+    color: black;
+    font-size: 24px;
+}
+
+@media (max-width: 512px) {
+    .bubble-container {
+        grid-template-columns: 1fr;
+    }
+
+    .bubble {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .bubble img {
+        width: 100%;
+        height: auto;
+    }
+
+    .Description {
+        padding: 10px;
+    }
+}
